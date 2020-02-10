@@ -9,8 +9,6 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
 
     <link rel="stylesheet" href="./css/login-css.css">
 </head>
@@ -22,17 +20,18 @@
 
         <div class="login-image"></div>
 
-        <!-- <form> -->
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control" id="email exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="password exampleInputPassword1">
-        </div>
-        <button type="submit" onclick="signUp()" class="btn btn-primary" style="margin-top: 10px;">Login</button>
-        <!-- </form> -->
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label for="exampleInputEmail1">UserName</label>
+                <input type="text" name='userName' class="form-control" id="email exampleInputEmail1"
+                    aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" name='password' class="form-control" id="password exampleInputPassword1">
+            </div>
+            <button type="submit" onclick="signUp()" class="btn btn-primary" style="margin-top: 10px;">Login</button>
+        </form>
 
     </div>
 
@@ -43,8 +42,12 @@
     <script>
         localStorage.setItem("lastname", "Smith");
 
-        function signUp() {
+        function getUser() {
             console.log(localStorage.getItem("lastname"));
+        }
+
+        window.onload = function () {
+            getUser();
         }
     </script>
 

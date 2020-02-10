@@ -8,7 +8,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 
-
+app.use(bodyParser.urlencoded({ extended: true }));
 //FIREBASE
 var admin = require("firebase-admin");
 
@@ -28,16 +28,46 @@ app.get("/", function (req, res) {
   res.render('login')
 });
 
+app.get("/home", function (req, res) {
+  // res.sendFile(__dirname + '/views/login.html')
 
-app.post('/', function (req, res) {
+  res.render('signup')
+});
+
+
+app.post('/signUp', function (req, res) {
   var db = admin.firestore();
   var user = {
     'userName': req.body.userName,
     'name': req.body.name,
     'password': req.body.password,
-
   };
-  db.collection('users').add()
+  console.log(user);
+  db.collection('users').add(user)
+    .then((resp) => {
+      res.redirect('/home');
+    })
+    .catch((e) => {
+      console.log(e);
+      res.redirect('/');
+    })
+});
+
+app.post('/login', function (req, res) {
+  var db = admin.firestore();
+  var user = {
+    'userName': req.body.userName,
+    'password': req.body.password,
+  };
+  console.log(user);
+  db.collection('users').where('userName', '==', user.userName).where('password', '==', user.password).get()
+    .then((resp) => {
+      res.redirect('/home')
+    })
+    .catch((e) => {
+      console.log(e);
+      res.redirect('/login');
+    })
 });
 
 app.listen(3000, function () {
