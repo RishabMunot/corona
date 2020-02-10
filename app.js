@@ -4,6 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 
 
@@ -21,7 +23,21 @@ admin.initializeApp({
 
 // ROUTING
 app.get("/", function (req, res) {
-  res.send("Hello");
+  // res.sendFile(__dirname + '/views/login.html')
+
+  res.render('login')
+});
+
+
+app.post('/', function (req, res) {
+  var db = admin.firestore();
+  var user = {
+    'userName': req.body.userName,
+    'name': req.body.name,
+    'password': req.body.password,
+
+  };
+  db.collection('users').add()
 });
 
 app.listen(3000, function () {
