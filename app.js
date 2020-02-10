@@ -10,7 +10,7 @@ const app = express();
 //FIREBASE
 var admin = require("firebase-admin");
 
-var serviceAccount = require("path/to/serviceAccountKey.json");
+var serviceAccount = require("./corona-e6d82-firebase-adminsdk-d311k-6c9937a85f.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -20,12 +20,11 @@ admin.initializeApp({
 
 
 // ROUTING
-app.get("/", function(req, res){
-    res.send("Hello");
-  });
-  
-  app.listen(3000, function(){
-    console.log("Server started on port 3000.");
-  });
-  
-  
+app.get("/", function (req, res) {
+  res.send("Hello");
+});
+
+app.listen(3000, function () {
+  console.log("Server started on port 3000.");
+});
+
