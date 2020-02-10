@@ -1,0 +1,29 @@
+.login{
+    padding: 3%;
+    width: 400px;
+    border-radius: 5px;
+    margin-top: 50%;
+    transform: translateY(50%);
+    margin: auto;
+}
+
+.login-image{
+    width: 100px;
+    height: 100px;
+    background-image: url("../images/login.jpg");
+    object-fit: cover;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.login-img{
+    width: 100px;
+    height: 100px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    object-fit: cover;
+}
+
+body{
+    background-color: #eee;
+}
