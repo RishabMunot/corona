@@ -28,37 +28,44 @@ app.get("/", function (req, res) {
   res.render('loading')
 });
 
-app.get("/:userName", function (req, res) {
+app.get("/home/:userName", function (req, res) {
   var db = admin.firestore();
   var userName = req.params.userName;
+  console.log(userName)
   var baseRef = db.collection('users').where('userName', '==', userName);
-  var challengeRef = baseRef.collection('challenges');
+  // // var challengeRef = baseRef.collection('challenges');
   baseRef.get()
     .then((resp) => {
-      var user = resp[0].data();
+
+      var user;
+      var id;
+      resp.forEach(doc => {
+        // console.log(doc.data())
+        user = doc.data();
+        id = doc.id;
+      })
+      // console.log(resp.id)
+      var challengeRef = db.collection('users').doc(id).collection('challenges');
       challengeRef.get()
         .then((documents) => {
           var list = [];
           documents.forEach(doc => {
-            list.add(doc.data());
+            list.push(doc.data());
+            // console.log(doc.docs.data())
           });
-          res.render('home', { list: list, user: user })
+          // console.log(list)
+          res.render('home', { list: list, user: user });
         })
         .catch((e) => {
-          print(e);
+          console.log(e);
         })
+      // res.render('home')
+
     })
     .catch((e) => {
       res.redirect('/')
     })
 
-<<<<<<< HEAD
-=======
-
-  res.send('Home Screen')
-
-  res.render('home')
->>>>>>> c2740806e175c98c0a6103b652a014d66da66250
 });
 
 app.get("/login", function (req, res) {
@@ -78,6 +85,25 @@ app.get("/ans/:userName", function (req, res) {
   res.render('answer')
 });
 
+
+app.post('/:userName/ans/:selectedAns', function (req, res) {
+  var db = admin.firestore();
+  var selectedAns = req.params.selectedAns;
+  var userName = req.params.userName;
+
+  db.collection('users').where('userName', '==', userName).get()
+    .then((resp) => {== 0
+      resp.forEach(doc => {
+
+      })
+    })
+    .catch((e) => {
+      console.log(e);
+    })
+
+
+})
+
 app.post('/signUp', function (req, res) {
   var db = admin.firestore();
   var user = {
@@ -88,7 +114,10 @@ app.post('/signUp', function (req, res) {
   console.log(user);
   db.collection('users').add(user)
     .then((resp) => {
-      res.redirect('/' + user.userName);
+      // resp.docId
+      console.log(resp.id);
+
+      res.redirect('/home/' + user.userName);
     })
     .catch((e) => {
       console.log(e);
@@ -108,7 +137,7 @@ app.post('/login', function (req, res) {
       resp.forEach(doc => {
         var data = doc.data();
         if (data['password'] == user.password) {
-          res.redirect('/' + user.userName)
+          res.redirect('/home/' + user.userName)
 
         }
         else {
