@@ -28,7 +28,31 @@ app.get("/", function (req, res) {
   res.render('loading')
 });
 
-app.get("/home", function (req, res) {
+app.get("/:userName", function (req, res) {
+  var db = admin.firestore();
+  var userName = req.params.userName;
+  var baseRef = db.collection('users').where('userName', '==', userName);
+  var challengeRef = baseRef.collection('challenges');
+  baseRef.get()
+    .then((resp) => {
+      var user = resp[0].data();
+      challengeRef.get()
+        .then((documents) => {
+          var list = [];
+          documents.forEach(doc => {
+            list.add(doc.data());
+          });
+          res.render('home', { list: list, user: user })
+        })
+        .catch((e) => {
+          print(e);
+        })
+    })
+    .catch((e) => {
+      res.redirect('/')
+    })
+
+
   res.send('Home Screen')
 
   res.render('signup')
@@ -44,6 +68,12 @@ app.get("/signUp", function (req, res) {
   res.render('signup')
 });
 
+app.get("/ans/:userName", function (req, res) {
+  var db = admin.firestore();
+  var userName = req.params.userName;
+  // db.collection('users').where('userName', '==', userName).collection('challenges').doc('id').get()
+  res.render('answer')
+});
 
 app.post('/signUp', function (req, res) {
   var db = admin.firestore();
@@ -55,7 +85,7 @@ app.post('/signUp', function (req, res) {
   console.log(user);
   db.collection('users').add(user)
     .then((resp) => {
-      res.redirect('/home');
+      res.redirect('/' + user.userName);
     })
     .catch((e) => {
       console.log(e);
@@ -75,7 +105,7 @@ app.post('/login', function (req, res) {
       resp.forEach(doc => {
         var data = doc.data();
         if (data['password'] == user.password) {
-          res.redirect('/home')
+          res.redirect('/' + user.userName)
 
         }
         else {
@@ -89,6 +119,15 @@ app.post('/login', function (req, res) {
       res.redirect('/login');
     })
 });
+
+
+
+
+app.post('/submit', function (req, res) {
+  var db = admin.firestore();
+
+})
+
 
 app.listen(3000, function () {
   console.log("Server started on port 3000.");
