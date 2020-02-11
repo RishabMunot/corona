@@ -1,0 +1,43 @@
+body{
+    background-color: #f0f0f0;
+}
+
+.home {
+    min-height: 700px;
+    max-height: 700px;
+    padding: 0 2%;
+    width: 400px;
+    border-radius: 5px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.nav{
+    background-color: blueviolet;
+    width: 100%;
+}
+
+p{
+    display: inline-block;
+}
+
+p.appname-corona{
+    text-align: center;
+}
+
+.action-buttons{
+    text-align: center;
+    margin: 15px 0;
+}
+
+button.btn.btn-primary{
+    width: 100px;
+}
+
+.display-4{
+ font-size: x-large;   
+}

@@ -29,9 +29,9 @@ app.get("/", function (req, res) {
 });
 
 app.get("/home", function (req, res) {
-  res.send('Home Screen')
+  // res.send('Home Screen')  
 
-  res.render('signup')
+  res.render('home')
 });
 
 app.get("/login", function (req, res) {
