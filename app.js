@@ -25,11 +25,21 @@ admin.initializeApp({
 app.get("/", function (req, res) {
   // res.sendFile(__dirname + '/views/login.html')
 
-  res.render('login')
+  res.render('loading')
 });
 
 app.get("/home", function (req, res) {
-  // res.sendFile(__dirname + '/views/login.html')
+  res.send('Home Screen')
+
+  res.render('signup')
+});
+
+app.get("/login", function (req, res) {
+
+  res.render('login')
+});
+
+app.get("/signUp", function (req, res) {
 
   res.render('signup')
 });
@@ -60,9 +70,19 @@ app.post('/login', function (req, res) {
     'password': req.body.password,
   };
   console.log(user);
-  db.collection('users').where('userName', '==', user.userName).where('password', '==', user.password).get()
+  db.collection('users').where('userName', '==', user.userName).get()
     .then((resp) => {
-      res.redirect('/home')
+      resp.forEach(doc => {
+        var data = doc.data();
+        if (data['password'] == user.password) {
+          res.redirect('/home')
+
+        }
+        else {
+          res.redirect('/login');
+
+        }
+      })
     })
     .catch((e) => {
       console.log(e);

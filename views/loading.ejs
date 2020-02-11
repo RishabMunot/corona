@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="./css/login-css.css">
+</head>
+
+<body>
+    <div class="loading">
+        <span class="loader">
+            <span class="loader-inner"></span>
+        </span>
+    </div>
+
+    <script>
+        var userName = localStorage.getItem("userName");
+        var name = localStorage.getItem("name");
+
+        if (userName == null) {
+            window.location.href = "/login";
+        } else {
+            window.location.href = "/home";
+
+        }
+    </script>
+</body>
+
+</html>

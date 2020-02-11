@@ -23,12 +23,11 @@
         <form action="/login" method="POST">
             <div class="form-group">
                 <label for="exampleInputEmail1">UserName</label>
-                <input type="text" name='userName' class="form-control" id="email exampleInputEmail1"
-                    aria-describedby="emailHelp">
+                <input type="text" name='userName' class="form-control" id="userName" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" name='password' class="form-control" id="password exampleInputPassword1">
+                <input type="password" name='password' class="form-control" id="password">
             </div>
             <button type="submit" onclick="signUp()" class="btn btn-primary" style="margin-top: 10px;">Login</button>
         </form>
@@ -40,14 +39,11 @@
 
 
     <script>
-        localStorage.setItem("lastname", "Smith");
+        function signUp() {
+            var userName = document.getElementById('userName').value;
 
-        function getUser() {
-            console.log(localStorage.getItem("lastname"));
-        }
+            localStorage.setItem("userName", userName);
 
-        window.onload = function () {
-            getUser();
         }
     </script>
 
