@@ -92,7 +92,7 @@ app.post('/:userName/ans/:selectedAns', function (req, res) {
   var userName = req.params.userName;
 
   db.collection('users').where('userName', '==', userName).get()
-    .then((resp) => {== 0
+    .then((resp) => {
       resp.forEach(doc => {
 
       })
