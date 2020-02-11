@@ -52,6 +52,13 @@ app.get("/:userName", function (req, res) {
       res.redirect('/')
     })
 
+<<<<<<< HEAD
+=======
+
+  res.send('Home Screen')
+
+  res.render('home')
+>>>>>>> c2740806e175c98c0a6103b652a014d66da66250
 });
 
 app.get("/login", function (req, res) {
