@@ -52,10 +52,6 @@ app.get("/:userName", function (req, res) {
       res.redirect('/')
     })
 
-
-  res.send('Home Screen')
-
-  res.render('signup')
 });
 
 app.get("/login", function (req, res) {
